@@ -1,16 +1,28 @@
-# React + Vite
+# eCommerce TodoBolsas - React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web interactiva desarrollada en React para la gestión de un catálogo de productos y carrito de compras dinámico.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Carga Asíncrona de Datos (`useEffect`)**: Simulación de consulta a API mediante archivo JSON local con estado de carga (`spinner`).
+- **Filtrado en Tiempo Real**: Búsqueda interactiva por nombre de producto utilizando estado derivado sin copias de datos redundantes.
+- **Carrito de Compras Avanzado**:
+  - Agrupación automática de productos duplicados por cantidad.
+  - Controles incrementales (`+` y `-`) por item.
+  - Cálculo de total basado en precio de oferta mediante `reduce()`.
+  - Opción de eliminación individual y botón para **Vaciar Carrito**.
+- **Elementos Interactivos Dinámicos**: Cambios en texto y estado visual de los botones de interacción ("Añadir al carrito" vs "✓ En el carrito").
+- **Diseño Responsivo**: Maquetación adaptativa utilizando Bootstrap 5.
 
-## React Compiler
+## 🛠️ Tecnologías Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18** (Componentes Funcionales, Hooks: `useState`, `useEffect`)
+- **Vite** (Build tool y entorno de desarrollo)
+- **Bootstrap 5 & FontAwesome**
+- **GitHub Pages** (Despliegue continuo)
 
-## Expanding the ESLint configuration
+## 📦 Instalación y Ejecución Local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clonar el repositorio:
+   ```bash
+   git clone [https://github.com/Rociomeh/e-commerce.git](https://github.com/Rociomeh/e-commerce.git)

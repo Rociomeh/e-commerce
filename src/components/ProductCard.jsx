@@ -1,9 +1,11 @@
 import React from 'react';
 
-function ProductCard({ producto, agregarAlCarrito }) {
+function ProductCard({ producto, cantidadEnCarrito, agregarAlCarrito }) {
+  const estaEnCarrito = cantidadEnCarrito > 0;
+
   return (
     <div className="col-12 col-md-4">
-      <div className="card h-100">
+      <div className="card h-100 shadow-sm">
         <img src={producto.imagen} className="card-img-top" alt={producto.nombre} />
         <div className="card-body d-flex flex-column justify-content-between">
           <div>
@@ -14,17 +16,19 @@ function ProductCard({ producto, agregarAlCarrito }) {
             </a>
           </div>
           <button 
-            className="btn btn-outline-dark w-100 mt-3 btn-agregar" 
+            className={`btn w-100 mt-3 transition-all ${
+              estaEnCarrito ? 'btn-success' : 'btn-outline-dark'
+            }`} 
             onClick={() => agregarAlCarrito(producto)}
           >
-            Añadir al carrito
+            {estaEnCarrito ? `✓ En el carrito (${cantidadEnCarrito})` : 'Añadir al carrito'}
           </button>
         </div>
-        <div className="card-footer text-end">
+        <div className="card-footer text-end bg-white border-top-0">
           <small className="text-muted d-block text-decoration-line-through me-1" style={{ fontSize: '0.8rem' }}>
             Normal: ${producto.precioNormal.toLocaleString('es-CL')}
           </small>
-          <small className="fw-bold text-dark">
+          <small className="fw-bold text-dark fs-6">
             Oferta: ${producto.precioOferta.toLocaleString('es-CL')}
           </small>
         </div>

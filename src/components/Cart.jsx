@@ -1,41 +1,57 @@
 import React from 'react';
 
-function Cart({ carrito, eliminarDelCarrito, cerrarCarrito, visible }) {
-  const total = carrito.reduce((acc, item) => acc + item.precioOferta, 0);
+function Cart({ carrito, modificarCantidad, eliminarDelCarrito, vaciarCarrito, cerrarCarrito, visible }) {
+  // Cálculo eficiente del total multiplicando por cantidad
+  const total = carrito.reduce((acc, item) => acc + (item.precioOferta * item.cantidad), 0);
 
   return (
-    <div className={`offcanvas offcanvas-end ${visible ? 'show d-block' : ''}`} tabIndex="-1" id="carritoOffcanvas">
+    <div className={`offcanvas offcanvas-end ${visible ? 'show d-block' : ''}`} tabIndex="-1">
       <div className="offcanvas-header bg-dark text-white">
-        <h5 className="offcanvas-title" id="carritoOffcanvasLabel">Resumen de Compra</h5>
+        <h5 className="offcanvas-title">Resumen de Compra</h5>
         <button type="button" className="btn-close btn-close-white" onClick={cerrarCarrito}></button>
       </div>
       <div className="offcanvas-body d-flex flex-column justify-content-between">
         <div>
+          {/* Renderizado condicional: Carrito vacío vs items */}
           {carrito.length === 0 ? (
-            <p className="text-center mt-3 text-muted">Tu carrito está vacío</p>
+            <div className="text-center py-5">
+              <p className="text-muted">Tu carrito está vacío</p>
+            </div>
           ) : (
-            <ul id="lista-carrito" className="list-group mb-3">
-              {carrito.map((item, index) => (
-                <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                  <div>
-                    <span>{item.nombre}</span>
-                    <br />
-                    <small className="text-muted">${item.precioOferta.toLocaleString('es-CL')}</small>
+            <ul className="list-group mb-3">
+              {carrito.map((item) => (
+                <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+                  <div className="me-2">
+                    <strong className="d-block">{item.nombre}</strong>
+                    <small className="text-muted">
+                      ${item.precioOferta.toLocaleString('es-CL')} x {item.cantidad}
+                    </small>
                   </div>
-                  <button className="btn btn-sm btn-outline-danger" onClick={() => eliminarDelCarrito(index)}>
-                    &times;
-                  </button>
+                  
+                  {/* Controles de cantidad (+ / -) y eliminar */}
+                  <div className="d-flex align-items-center gap-1">
+                    <button className="btn btn-sm btn-outline-secondary px-2" onClick={() => modificarCantidad(item.id, -1)}>-</button>
+                    <span className="px-1 small fw-bold">{item.cantidad}</span>
+                    <button className="btn btn-sm btn-outline-secondary px-2" onClick={() => modificarCantidad(item.id, 1)}>+</button>
+                    <button className="btn btn-sm btn-danger ms-2" onClick={() => eliminarDelCarrito(item.id)}>&times;</button>
+                  </div>
                 </li>
               ))}
             </ul>
           )}
         </div>
-        <div className="border-top pt-3">
-          <h4 className="d-flex justify-content-between">
-            <span>Total:</span>
-            <span>$<span id="total-carrito">{total.toLocaleString('es-CL')}</span></span>
-          </h4>
-        </div>
+
+        {carrito.length > 0 && (
+          <div className="border-top pt-3">
+            <h4 className="d-flex justify-content-between mb-3">
+              <span>Total:</span>
+              <span>${total.toLocaleString('es-CL')}</span>
+            </h4>
+            <button className="btn btn-outline-danger w-100" onClick={vaciarCarrito}>
+              Vaciar Carrito
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
